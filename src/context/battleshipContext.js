@@ -27,6 +27,7 @@ export const BattleShipProvider = ({ children }) => {
     }
     
     const [currentPlayer, setCurrentPlayer] = useState("user")
+    /* const [boardUser, setBoardUser] = useState(createBoard()); */
     const [boardUser, setBoardUser] = useState(createBoard());
     const [boardComputer, setBoardComputer] = useState(createBoard());
     
@@ -39,19 +40,19 @@ export const BattleShipProvider = ({ children }) => {
     3: missed
     */
     const hitShip = (player, index) => {
-        if (player === "user") {
+        if (player === "computer") {
             setBoardComputer(boardComputer.map((x, i) => {
-                return i === index ? 1 : x
+                return i === index ? 2 : x
             }))
         } else {
             setBoardUser(boardUser.map((x, i) => {
-                return i === index ? 1 : x
+                return i === index ? 2 : x
             }))
         }
     }
 
     const missShip = (player, index) => {
-        if (player === "user") {
+        if (player === "computer") {
             setBoardComputer(boardComputer.map((x, i) => {
                 return i === index ? 3 : x
             }))
@@ -61,6 +62,23 @@ export const BattleShipProvider = ({ children }) => {
             }))
         }
     }
+
+    const drawShip = (player, index) => {
+        if (player === "computer") {
+            setBoardComputer(boardComputer.map((x, i) => {
+                return i === index ? 1 : x
+            }))
+        } else {
+            setBoardUser(boardUser.map((x, i) => {
+                return i === index ? 1 : x
+            }))
+            console.log(boardUser)
+            
+        }
+    }
+   
+    
+
 
 
 
@@ -72,7 +90,8 @@ export const BattleShipProvider = ({ children }) => {
     };
     const actions = {
         hitShip,
-        missShip
+        missShip,
+        drawShip
     };
 
 
