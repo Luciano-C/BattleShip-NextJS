@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 export const Square = ({ value, player }) => {
@@ -16,6 +16,10 @@ export const Square = ({ value, player }) => {
     ]
 
     const [estado, setEstado] = useState(value);
+
+   
+
+
 
     const getBackgroundColor = () => {
         if (player === "user") {

@@ -28,13 +28,17 @@ export default function Home() {
   }, []) */
 
   const startGame = () => {
-    /* actions.drawShip("user", 1)
-    actions.drawShip("user", 2) */
-    
+    actions.drawShip("user", 1)
+    actions.drawShip("user", 2)
     
   }
 
-
+  useEffect(() => {
+    console.log("hola")
+    
+    
+  }, [variables.board])
+  
 
 
   return (

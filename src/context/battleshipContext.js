@@ -12,9 +12,6 @@ export const useBattleShipContext = () => {
 
 
 
-
-
-
 export const BattleShipProvider = ({ children }) => {
 
     
@@ -63,7 +60,7 @@ export const BattleShipProvider = ({ children }) => {
         }
     }
 
-    const drawShip = (player, index) => {
+   /*  const drawShip = (player, index) => {
         if (player === "computer") {
             setBoardComputer(boardComputer.map((x, i) => {
                 return i === index ? 1 : x
@@ -73,6 +70,19 @@ export const BattleShipProvider = ({ children }) => {
                 return i === index ? 1 : x
             }))
             console.log(boardUser)
+            
+        }
+    } */
+
+    const drawShip = (player, index) => {
+        if (player === "computer") {
+            setBoardComputer(boardComputer.map((x, i) => {
+                return i === index ? 1 : x
+            }))
+        } else {
+            boardUser[index] = 1
+            console.log(boardUser)
+            
             
         }
     }
