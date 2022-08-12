@@ -2,7 +2,7 @@ import React from 'react'
 import { Square } from './square'
 import { useBattleShipContext } from '../context/battleshipContext'
 
-export const Board = ({ board, player }) => {
+export const Board = ({ board }) => {
     const { variables, actions } = useBattleShipContext();
 
 
@@ -11,7 +11,7 @@ export const Board = ({ board, player }) => {
             <ul className='d-flex flex-wrap' style={{ height: "35em", width: "35em" }}>
                 {board.map((x, i) => {
                     return (
-                        <Square key={i} value={x} player={player}/>
+                        <Square key={i} index={i} board={board} />
                     )
                 })}
             </ul>

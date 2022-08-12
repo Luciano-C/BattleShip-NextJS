@@ -9,9 +9,6 @@ export const useBattleShipContext = () => {
     return useContext(BattleShipContext);
 }
 
-
-
-
 export const BattleShipProvider = ({ children }) => {
 
     
@@ -38,60 +35,71 @@ export const BattleShipProvider = ({ children }) => {
     */
     const hitShip = (player, index) => {
         if (player === "computer") {
-            setBoardComputer(boardComputer.map((x, i) => {
-                return i === index ? 2 : x
-            }))
+            setBoardComputer(x => {
+                return [
+                    ...x.slice(0, index), 
+                    2,
+                    ...x.slice(index + 1)
+                ]
+            })
         } else {
-            setBoardUser(boardUser.map((x, i) => {
-                return i === index ? 2 : x
-            }))
+            setBoardUser(x => {
+                return [
+                    ...x.slice(0, index), 
+                    2,
+                    ...x.slice(index + 1)
+                ]
+            })
+            
         }
     }
 
     const missShip = (player, index) => {
         if (player === "computer") {
-            setBoardComputer(boardComputer.map((x, i) => {
-                return i === index ? 3 : x
-            }))
+            setBoardComputer(x => {
+                return [
+                    ...x.slice(0, index), 
+                    3,
+                    ...x.slice(index + 1)
+                ]
+            })
         } else {
-            setBoardUser(boardUser.map((x, i) => {
-                return i === index ? 3 : x
-            }))
-        }
-    }
-
-   /*  const drawShip = (player, index) => {
-        if (player === "computer") {
-            setBoardComputer(boardComputer.map((x, i) => {
-                return i === index ? 1 : x
-            }))
-        } else {
-            setBoardUser(boardUser.map((x, i) => {
-                return i === index ? 1 : x
-            }))
-            console.log(boardUser)
+            setBoardUser(x => {
+                return [
+                    ...x.slice(0, index), 
+                    3,
+                    ...x.slice(index + 1)
+                ]
+            })
             
         }
-    } */
+    }
+ 
 
     const drawShip = (player, index) => {
         if (player === "computer") {
-            setBoardComputer(boardComputer.map((x, i) => {
-                return i === index ? 1 : x
-            }))
+            setBoardComputer(x => {
+                return [
+                    ...x.slice(0, index), 
+                    1,
+                    ...x.slice(index + 1)
+                ]
+            })
         } else {
-            let tempBoard = boardUser;
-            tempBoard[index] = 1;
-            setBoardUser(tempBoard);
-            
+            setBoardUser(x => {
+                return [
+                    ...x.slice(0, index), 
+                    1,
+                    ...x.slice(index + 1)
+                ]
+            })
             
         }
     }
-   
+
     
-
-
-
+   // Modificar verdaderamente arrays con useState https://www.codingdeft.com/posts/react-usestate-array/
+    
 
 
     const variables = {
