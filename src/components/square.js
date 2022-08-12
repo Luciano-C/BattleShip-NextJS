@@ -17,7 +17,7 @@ export const Square = ({ board, index }) => {
 
     const statusArray = [
         { description: "empty", value: 0, colorUser: "white", colorComputer: "white" },
-        { description: "part of ship", value: 1, colorUser: "black", colorComputer: "white" },
+        { description: "part of ship", value: 1, colorUser: "black", colorComputer: "pink" },
         { description: "empty", value: 2, colorUser: "red", colorComputer: "red" },
         { description: "empty", value: 3, colorUser: "blue", colorComputer: "blue" }
     ]
@@ -29,37 +29,13 @@ export const Square = ({ board, index }) => {
             setValue(variables.boardComputer[index])
         }
         
-        
-
-        /* switch (value) {
-            case 0:
-                setBackgroundColor("white")
-                break;
-            case 1:
-                setBackgroundColor("black")
-            case 2:
-                setBackgroundColor("red")
-            case 3:
-                setBackgroundColor("blue")
-
-            default:
-                break;
-        } */
-
-    }, [variables.boardUser])
+    }, [variables.boardUser, variables.boardComputer])
 
 
 
 
 
-    /* const getBackgroundColor = () => {
-        if (board === variables.boardUser) {
-            return statusArray.filter(x => x.value === value)[0].colorUser
-        } else {
-            return statusArray.filter(x => x.value === value)[0].colorComputer
-        }
-
-    } */
+    
 
     if (board === variables.boardUser) {
         return (
