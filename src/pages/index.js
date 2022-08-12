@@ -1,6 +1,6 @@
 import { Board } from "../components/board"
 import { useBattleShipContext } from "../context/battleshipContext"
-import { Ship_2 } from "../utils/ship";
+import { Ship_2, Ship_3 } from "../utils/ship";
 import React, { useState, useEffect } from "react";
 
 
@@ -12,13 +12,21 @@ export default function Home() {
 
 
   const barquito = new Ship_2(variables.boardUser, []);
-
+  const barco = new Ship_3(variables.boardUser, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
  
 
   const startGame = () => {
-    barquito.placeShip();
+    /* barquito.placeShip();
     console.log(barquito.indexes)
     barquito.indexes.forEach(x => {
+      actions.drawShip("user", x)
+    }) */
+
+
+    barco.placeShip();
+    console.log(barco.indexes)
+    console.log(barco.bannedIndexes)
+    barco.indexes.forEach(x => {
       actions.drawShip("user", x)
     })
 
