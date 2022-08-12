@@ -147,3 +147,154 @@ export class Ship_3 extends Ship {
 
     }
 }
+
+export class Ship_4 extends Ship {
+    constructor(board, shipIndexes) {
+        super(board, shipIndexes)
+    }
+
+
+    placeShip() {
+        /* 
+        Tablero
+           00,01,02,03,04,05,06,07,08,09,
+           10,11,12,13,14,15,16,17,18,19
+           .
+           .
+           90,91,92,93,94,95,96,97,98,99
+           */
+        // Se elige el inicio del barco
+        this.indexes.push(chooseRandomIndex(this.board));
+
+        switch (this.orientation) {
+            case "horizontal":
+                // Se llena el resto de los indices de acuerdo a orientación    
+                for (let i = 1; i < 4; i++) {
+                    this.indexes.push(this.indexes[i - 1] + 1)
+                };
+
+                // Añade a los índices baneados en la primera parte del barco: 8, 9 para la fila 0; 18, 19 para la fila 1 .....98, 99 para la fila 9
+                for (let i = 0; i < 10; i++) {
+                    this.bannedIndexes.push([i * 10 + 7, i * 10 + 8, i * 10 + 9, i * 10 + 10])
+                }
+
+                break;
+
+            case "vertical":
+                // Se llena el resto de los indices de acuerdo a orientación 
+                for (let i = 1; i < 4; i++) {
+                    this.indexes.push(this.indexes[i - 1] + 10)
+                }
+
+                // Añade a los índices baneados en la primera parte del barco: [80, 90, 0], [81, 91, 1], ....[89, 99, 9]
+                for (let i = 0; i < 10; i++) {
+                    this.bannedIndexes.push([i + 70, i + 80, i + 90, i * 1])
+                }
+
+                break;
+        }
+
+        const errors = [
+            this.bannedIndexes.map(x => x[0]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[1]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[2]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[1]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[2]),
+            this.shipIndexes.includes(this.indexes[0]),
+            this.shipIndexes.includes(this.indexes[1]),
+            this.shipIndexes.includes(this.indexes[2]),
+            this.shipIndexes.includes(this.indexes[3])
+            
+        ]
+
+
+        if (errors.includes(true)) {
+            console.log("denuevo");
+            this.indexes = [];
+            this.placeShip();
+        }
+
+    }
+}
+
+
+export class Ship_5 extends Ship {
+    constructor(board, shipIndexes) {
+        super(board, shipIndexes)
+    }
+
+
+    placeShip() {
+        /* 
+        Tablero
+           00,01,02,03,04,05,06,07,08,09,
+           10,11,12,13,14,15,16,17,18,19
+           .
+           .
+           90,91,92,93,94,95,96,97,98,99
+           */
+        // Se elige el inicio del barco
+        this.indexes.push(chooseRandomIndex(this.board));
+
+        switch (this.orientation) {
+            case "horizontal":
+                // Se llena el resto de los indices de acuerdo a orientación    
+                for (let i = 1; i < 5; i++) {
+                    this.indexes.push(this.indexes[i - 1] + 1)
+                };
+
+                // Añade a los índices baneados en la primera parte del barco: 8, 9 para la fila 0; 18, 19 para la fila 1 .....98, 99 para la fila 9
+                for (let i = 0; i < 10; i++) {
+                    this.bannedIndexes.push([i * 10 + 6, i * 10 + 7, i * 10 + 8, i * 10 + 9, i * 10 + 10])
+                }
+
+                break;
+
+            case "vertical":
+                // Se llena el resto de los indices de acuerdo a orientación 
+                for (let i = 1; i < 5; i++) {
+                    this.indexes.push(this.indexes[i - 1] + 10)
+                }
+
+                // Añade a los índices baneados en la primera parte del barco: [80, 90, 0], [81, 91, 1], ....[89, 99, 9]
+                for (let i = 0; i < 10; i++) {
+                    this.bannedIndexes.push([i + 60, i + 70, i + 80, i + 90, i * 1])
+                }
+
+                break;
+        }
+
+        const errors = [
+            this.bannedIndexes.map(x => x[0]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[1]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[2]),
+            this.bannedIndexes.map(x => x[1]).includes(this.indexes[3]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[1]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[2]),
+            this.bannedIndexes.map(x => x[2]).includes(this.indexes[3]),
+            this.bannedIndexes.map(x => x[3]).includes(this.indexes[0]),
+            this.bannedIndexes.map(x => x[3]).includes(this.indexes[1]),
+            this.bannedIndexes.map(x => x[3]).includes(this.indexes[2]),
+            this.bannedIndexes.map(x => x[3]).includes(this.indexes[3]),
+            this.shipIndexes.includes(this.indexes[0]),
+            this.shipIndexes.includes(this.indexes[1]),
+            this.shipIndexes.includes(this.indexes[2]),
+            this.shipIndexes.includes(this.indexes[3]),
+            this.shipIndexes.includes(this.indexes[4])
+            
+        ]
+
+
+        if (errors.includes(true)) {
+            console.log("denuevo");
+            this.indexes = [];
+            this.placeShip();
+            
+        }
+
+    }
+}
