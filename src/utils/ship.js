@@ -291,6 +291,7 @@ export class Ship_5 extends Ship {
 
         if (errors.includes(true)) {
             console.log("denuevo");
+
             this.indexes = [];
             this.placeShip();
             
