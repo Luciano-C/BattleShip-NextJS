@@ -11,7 +11,7 @@ export const Board = ({ board, player }) => {
             <ul className='d-flex flex-wrap' style={{ height: "35em", width: "35em" }}>
                 {board.map((x, i) => {
                     return (
-                        <Square key={i} value={board[i]} player={player}/>
+                        <Square key={i} value={x} player={player}/>
                     )
                 })}
             </ul>

@@ -28,8 +28,8 @@ export default function Home() {
   }, []) */
 
   const startGame = () => {
+    actions.drawShip("user", 0)
     actions.drawShip("user", 1)
-    actions.drawShip("user", 2)
     
   }
 

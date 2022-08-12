@@ -80,8 +80,9 @@ export const BattleShipProvider = ({ children }) => {
                 return i === index ? 1 : x
             }))
         } else {
-            boardUser[index] = 1
-            console.log(boardUser)
+            let tempBoard = boardUser;
+            tempBoard[index] = 1;
+            setBoardUser(tempBoard);
             
             
         }
