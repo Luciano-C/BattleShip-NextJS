@@ -41,4 +41,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <p>Cada tablero tiene botones que permiten añadir los barcos, éstos son añadidos en posiciones aleatorias.</p>
 <p>Primero se deben colocar todos los barcos, una vez añadidos se presiona el botón Start. <br> 
 El usuario parte disparando, luego dispara la computadora y el juego continua hasta que alguno de los jugadores pierde todos sus barcos.</p>
-<p>Para reiniciar se debe refrescar la página</p>
+<p>Para reiniciar se debe refrescar la página.</p>
