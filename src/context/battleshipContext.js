@@ -108,6 +108,12 @@ export const BattleShipProvider = ({ children }) => {
         switch (value) {
             case 0:
                 actions.missShip(shooter, index);
+                if (shooter === "user") {
+                    setCurrentPlayer("computer")
+                }
+                else {
+                    setCurrentPlayer("user")
+                }
                 break;
             case 1:
                 actions.hitShip(shooter, index);

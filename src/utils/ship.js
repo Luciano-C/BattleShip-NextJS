@@ -1,7 +1,8 @@
 import { chooseRandomIndex } from "./functions";
 
 class Ship {
-    constructor(board, shipIndexes) {
+    constructor(name, board, shipIndexes) {
+        this.name = name;
         // Tablero al que pertenece: []
         this.board = board;
         // Indices que no se pueden ocupar, porque quedarían partes fuera del tablero o chocaría con otros barcos: [[]]
@@ -19,8 +20,8 @@ class Ship {
 }
 
 export class Ship_2 extends Ship {
-    constructor(board, shipIndexes) {
-        super(board, shipIndexes)
+    constructor(name, board, shipIndexes) {
+        super(name, board, shipIndexes)
     }
 
 
@@ -77,14 +78,14 @@ export class Ship_2 extends Ship {
             this.indexes = [];
             this.placeShip();
         }
-
+        
     }
 }
 
 
 export class Ship_3 extends Ship {
-    constructor(board, shipIndexes) {
-        super(board, shipIndexes)
+    constructor(name, board, shipIndexes) {
+        super(name, board, shipIndexes)
     }
 
 
@@ -149,8 +150,8 @@ export class Ship_3 extends Ship {
 }
 
 export class Ship_4 extends Ship {
-    constructor(board, shipIndexes) {
-        super(board, shipIndexes)
+    constructor(name, board, shipIndexes) {
+        super(name, board, shipIndexes)
     }
 
 
@@ -221,8 +222,8 @@ export class Ship_4 extends Ship {
 
 
 export class Ship_5 extends Ship {
-    constructor(board, shipIndexes) {
-        super(board, shipIndexes)
+    constructor(name, board, shipIndexes) {
+        super(name, board, shipIndexes)
     }
 
 
