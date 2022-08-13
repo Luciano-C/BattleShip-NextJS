@@ -201,7 +201,7 @@ export default function Home() {
 
 
         <div className="col-3 d-flex flex-column justify-content-center align-items-center">
-          <button className="btn btn-primary btn-lg ps-5 pe-5" onClick={(e) => { startGame(); e.currentTarget.disabled = true }}>Start</button>
+          <button className="btn btn-primary btn-lg ps-5 pe-5" onClick={(e) => { startGame(); if( userOccupiedIndexes.length === 17 || computerOccupiedIndexes.length === 17){e.currentTarget.disabled = true }}}>Start</button>
         </div>
 
         <div className="col-3 d-flex justify-content-center align-items-center ps-3">
