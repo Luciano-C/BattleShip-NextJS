@@ -27,9 +27,8 @@ export default function Home() {
     computerCarrier: []
   })
 
-
-
-
+  const [hasUserWon, setHasUserWon] = useState(false);
+  const [hasComputerWon, setHasComputerWon] = useState(false);
 
   const userDestroyer = new Ship_2("userDestroyer", variables.boardUser, userOccupiedIndexes);
   const userCruiser = new Ship_3("userCruiser", variables.boardUser, userOccupiedIndexes);
@@ -37,7 +36,7 @@ export default function Home() {
   const userBattleShip = new Ship_4("userBattleShip", variables.boardUser, userOccupiedIndexes);
   const userCarrier = new Ship_5("userCarrier", variables.boardUser, userOccupiedIndexes);
 
-  const computerDestroyer = new Ship_2("computerDestroyer", variables.boardUser, computerOccupiedIndexes);
+  const computerDestroyer = new Ship_2("computerDestroyer", variables.boardUser, computerOccupiedIndexes); 
   const computerCruiser = new Ship_3("computerCruiser", variables.boardUser, computerOccupiedIndexes);
   const computerSubmarine = new Ship_3("computerSubmarine", variables.boardUser, computerOccupiedIndexes);
   const computerBattleShip = new Ship_4("computerBattleShip", variables.boardUser, computerOccupiedIndexes);
@@ -49,7 +48,7 @@ export default function Home() {
     ship.indexes.forEach(x => {
       actions.drawShip(player, x)
     });
-    
+
     if (player === "user") {
       setUserShipIndexes({
         ...userShipIndexes, [ship.name]: [...ship.indexes]
@@ -82,38 +81,55 @@ export default function Home() {
     if (player === "user") {
       if (!userShipIndexes[ship.name].map(x => variables.boardUser[x]).includes(1)) {
         return "destroyed"
-      } 
-      else {
-        return "alive"
       }
-    } 
-    else {
-      if (!computerShipIndexes[ship.name].map(x => variables.boardComputer[x]).includes(1)) {
-        return "destroyed"
-      } 
       else {
         return "alive"
       }
     }
-    
+    else {
+      if (!computerShipIndexes[ship.name].map(x => variables.boardComputer[x]).includes(1)) {
+        return "destroyed"
+      }
+      else {
+        return "alive"
+      }
+    }
+  }
+
+
+  const checkIfUserWon = () => {
+    const checker = variables.boardComputer.filter(x => x === 1).length;
+    if (checker === 0) {
+      setHasUserWon(true)
+    } 
+  }
+
+  const checkIfComputerWon = () => {
+    const checker = variables.boardUser.filter(x => x === 1).length;
+    if (checker === 0) {
+      setHasComputerWon(true)
+    } 
   }
 
 
   
 
+
+
+
   const startGame = () => {
-    
-    
+
+
     if (userOccupiedIndexes.length !== 17 || computerOccupiedIndexes.length !== 17) {
       alert("Falta poner naves");
       return
     }
 
     actions.setIsGameOn(true);
-    
-    
-    
-    let userShipConditions = [
+    actions.setCurrentPlayer("user");
+
+
+    /* let userShipConditions = [
       getShipStatus("user", userDestroyer),
       getShipStatus("user", userCruiser),
       getShipStatus("user", userSubmarine),
@@ -129,34 +145,46 @@ export default function Home() {
       getShipStatus("computer", computerCarrier)
     ]
 
-    actions.setCurrentPlayer("user");
 
+    if (!userShipConditions.includes("alive") || !computerShipConditions.includes("alive")) {
+      actions.setIsGameOn(false)
+      alert("game ended")
+    } */
 
-
-    
-
-    console.log(userShipConditions)
-
-
-    //console.log(getShipStatus("computer", computerDestroyer))
-    
-    
   }
 
   useEffect(() => {
     
+    if (variables.isGameOn) {
+      checkIfUserWon()
+      if (hasUserWon) {
+        alert("You won")
+        actions.setIsGameOn(false);
+      }
+      else if (hasComputerWon) {
+        alert("You lost");
+        actions.setIsGameOn(false);
+      }
+    }
+  }, [variables.isGameOn, variables.userTurns, variables.currentPlayer, hasUserWon])
+
+
+
+
+  useEffect(() => {
+
     setTimeout(() => {
       if (variables.isGameOn && variables.currentPlayer === "computer") {
         variables.currentPlayer === "computer"
-          actions.shoot("computer", chooseRandomIndex(variables.boardUser.filter(x => x !== 2 || x !== 3)))
-        
+        actions.shoot("computer", chooseRandomIndex(variables.boardUser.filter(x => x !== 2 || x !== 3)))
         
       }
-    }, 1000)
-  
-   
-  }, [variables.currentPlayer])
-  
+
+    }, 500)
+
+
+  }, [variables.currentPlayer, variables.computerTurns])
+
 
 
 

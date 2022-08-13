@@ -24,6 +24,8 @@ export const BattleShipProvider = ({ children }) => {
     const [boardUser, setBoardUser] = useState(createBoard());
     const [boardComputer, setBoardComputer] = useState(createBoard());
     const [isGameOn, setIsGameOn] = useState(false);
+    const [userTurns, setUserTurns] = useState(0);
+    const [computerTurns, setComputerTurns] = useState(0);
 
 
     // Funciones para disparo
@@ -121,7 +123,13 @@ export const BattleShipProvider = ({ children }) => {
         
             default:
                 break;
+        }
+        if (shooter === "user" ) {
+            setUserTurns(userTurns + 1);
         } 
+        else {
+            setComputerTurns(computerTurns + 1)
+        }
     }
 
 
@@ -133,7 +141,9 @@ export const BattleShipProvider = ({ children }) => {
         currentPlayer, 
         boardUser,
         boardComputer,
-        isGameOn
+        isGameOn,
+        userTurns,
+        computerTurns
     };
     const actions = {
         setCurrentPlayer,
@@ -141,7 +151,9 @@ export const BattleShipProvider = ({ children }) => {
         missShip,
         drawShip,
         setIsGameOn,
-        shoot
+        shoot,
+        setUserTurns,
+        setComputerTurns
     };
 
 
