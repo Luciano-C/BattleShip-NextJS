@@ -11,7 +11,7 @@ export const useBattleShipContext = () => {
 
 export const BattleShipProvider = ({ children }) => {
 
-    
+
     const createBoard = () => {
         let board = [];
         for (let i = 0; i < 100; i++) {
@@ -19,13 +19,13 @@ export const BattleShipProvider = ({ children }) => {
         }
         return board
     }
-    
+
     const [currentPlayer, setCurrentPlayer] = useState("user")
-    /* const [boardUser, setBoardUser] = useState(createBoard()); */
     const [boardUser, setBoardUser] = useState(createBoard());
     const [boardComputer, setBoardComputer] = useState(createBoard());
-    
-    
+    const [isGameOn, setIsGameOn] = useState(false);
+
+
     // Funciones para disparo
     /* 
     0: empty
@@ -35,52 +35,52 @@ export const BattleShipProvider = ({ children }) => {
     */
     const hitShip = (player, index) => {
         if (player === "computer") {
-            setBoardComputer(x => {
+            setBoardUser(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     2,
                     ...x.slice(index + 1)
                 ]
             })
         } else {
-            setBoardUser(x => {
+            setBoardComputer(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     2,
                     ...x.slice(index + 1)
                 ]
             })
-            
+
         }
     }
 
     const missShip = (player, index) => {
         if (player === "computer") {
-            setBoardComputer(x => {
+            setBoardUser(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     3,
                     ...x.slice(index + 1)
                 ]
             })
         } else {
-            setBoardUser(x => {
+            setBoardComputer(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     3,
                     ...x.slice(index + 1)
                 ]
             })
-            
+
         }
     }
- 
+
 
     const drawShip = (player, index) => {
         if (player === "computer") {
             setBoardComputer(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     1,
                     ...x.slice(index + 1)
                 ]
@@ -88,29 +88,54 @@ export const BattleShipProvider = ({ children }) => {
         } else {
             setBoardUser(x => {
                 return [
-                    ...x.slice(0, index), 
+                    ...x.slice(0, index),
                     1,
                     ...x.slice(index + 1)
                 ]
             })
-            
+
         }
     }
 
-    
-   // Modificar verdaderamente arrays con useState https://www.codingdeft.com/posts/react-usestate-array/
-    
+
+    const shoot = (shooter, index) => {
+        let value;
+        if (shooter === "user") {
+            value = boardComputer[index];
+        } else {
+            value = boardUser[index];
+        }
+        switch (value) {
+            case 0:
+                actions.missShip(shooter, index);
+                break;
+            case 1:
+                actions.hitShip(shooter, index);
+                break;
+        
+            default:
+                break;
+        } 
+    }
+
+
+    // Modificar verdaderamente arrays con useState https://www.codingdeft.com/posts/react-usestate-array/
+
 
 
     const variables = {
-        currentPlayer,
+        currentPlayer, 
         boardUser,
-        boardComputer
+        boardComputer,
+        isGameOn
     };
     const actions = {
+        setCurrentPlayer,
         hitShip,
         missShip,
-        drawShip
+        drawShip,
+        setIsGameOn,
+        shoot
     };
 
 
