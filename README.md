@@ -1,3 +1,4 @@
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -32,3 +33,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+<h2>Acerca del juego</h2>
+<p>Se juega contra la computadora.</p>
+<p>Cada tablero tiene botones que permiten añadir los barcos, éstos son añadidos en posiciones aleatorias.</p>
+<p>Primero se deben colocar todos los barcos, una vez añadidos se presiona el botón Start. <br> 
+El usuario parte disparando, luego dispara la computadora y el juego continua hasta que alguno de los jugadores pierde todos sus barcos.</p>
+<p>Para reiniciar se debe refrescar la página</p>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Square } from './square'
 
-
+// Componente que renderiza 100 cuadrados (uno por cada valor en userBoard/computerBoard)
 export const Board = ({ board }) => {
     
     return (

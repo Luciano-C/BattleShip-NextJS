@@ -3,7 +3,7 @@ import React, { useState, createContext, useContext } from 'react'
 
 export const BattleShipContext = createContext();
 
-// Custom hook
+// Custom hook, para no tener que import BattleShipContext cada vez 
 
 export const useBattleShipContext = () => {
     return useContext(BattleShipContext);
@@ -20,21 +20,27 @@ export const BattleShipProvider = ({ children }) => {
         return board
     }
 
+    // currentPlayer se usa para verificar los turnos.
     const [currentPlayer, setCurrentPlayer] = useState("user")
+    // boardUser y boardComputer guardan los valores de cada casilla para cada tablero
     const [boardUser, setBoardUser] = useState(createBoard());
     const [boardComputer, setBoardComputer] = useState(createBoard());
+    // isGameOn indica si el juego está en marcha
     const [isGameOn, setIsGameOn] = useState(false);
+    // Cuenta los turnos, esto se usa en el useEffect en index para que la computadora dispare y en useEffect para determinar cuando alguien gana.
     const [userTurns, setUserTurns] = useState(0);
     const [computerTurns, setComputerTurns] = useState(0);
 
 
-    // Funciones para disparo
+    // Código de valores de casilla.
     /* 
     0: empty
     1: part of ship
     2: shot ship
     3: missed
     */
+
+    // Cambia el valor de la casilla correspondiente a 2, lo cual pintará el cuadro de rojo.
     const hitShip = (player, index) => {
         if (player === "computer") {
             setBoardUser(x => {
@@ -55,7 +61,7 @@ export const BattleShipProvider = ({ children }) => {
 
         }
     }
-
+    // Cambia el valor de la casilla correspondiente a 1, lo cual pintará el cuadro de azul.
     const missShip = (player, index) => {
         if (player === "computer") {
             setBoardUser(x => {
@@ -77,7 +83,7 @@ export const BattleShipProvider = ({ children }) => {
         }
     }
 
-
+// Cambia el valor de la casilla correspondiente a 1, lo cual pintará el cuadro de negro.
     const drawShip = (player, index) => {
         if (player === "computer") {
             setBoardComputer(x => {
@@ -99,7 +105,10 @@ export const BattleShipProvider = ({ children }) => {
         }
     }
 
-
+    // Función de disparo. Primero obtiene el valor de la casilla disparada en el tablero correspondiente.
+    // Dependiendo del valor elige en el switch la función que corresponde, si la casilla era vacía (0) activa la función missShip y cambia de turno de jugador.
+    // Si había una parte de un barco (1), activa la función hitShip. El jugador vuelve a disparar.
+    // Finalmente actualiza el conteo de turnos, los cuales son importantes en los useEffect de index.js
     const shoot = (shooter, index) => {
         let value;
         if (shooter === "user") {
@@ -133,22 +142,10 @@ export const BattleShipProvider = ({ children }) => {
     }
 
 
-    
-
-    const resetGame = () => {
-        setCurrentPlayer("user");
-        setBoardUser(createBoard());
-        setBoardComputer(createBoard());
-        setIsGameOn(false);
-        setUserTurns(0);
-        setComputerTurns(0);
-    }
-
-
     // Modificar verdaderamente arrays con useState https://www.codingdeft.com/posts/react-usestate-array/
 
 
-
+ // variables y actions contienen las variables y funciones que se mandan a través de useContext de forma similar al boilerplate de la academia.
     const variables = {
         currentPlayer, 
         boardUser,
@@ -165,13 +162,8 @@ export const BattleShipProvider = ({ children }) => {
         setIsGameOn,
         shoot,
         setUserTurns,
-        setComputerTurns,
-        resetGame
+        setComputerTurns
     };
-
-
-
-
 
 
 
