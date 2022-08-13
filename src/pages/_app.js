@@ -13,7 +13,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <BattleShipProvider>
+      <div className='animated-bg'>
       <Component {...pageProps}/>
+      </div>
+      
     </BattleShipProvider>
 
   )

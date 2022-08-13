@@ -77,25 +77,7 @@ export default function Home() {
   }
 
 
-  const getShipStatus = (player, ship) => {
-    if (player === "user") {
-      if (!userShipIndexes[ship.name].map(x => variables.boardUser[x]).includes(1)) {
-        return "destroyed"
-      }
-      else {
-        return "alive"
-      }
-    }
-    else {
-      if (!computerShipIndexes[ship.name].map(x => variables.boardComputer[x]).includes(1)) {
-        return "destroyed"
-      }
-      else {
-        return "alive"
-      }
-    }
-  }
-
+  
 
   const checkIfUserWon = () => {
     const checker = variables.boardComputer.filter(x => x === 1).length;
@@ -112,10 +94,6 @@ export default function Home() {
   }
 
 
-  
-
-
-
 
   const startGame = () => {
 
@@ -128,109 +106,92 @@ export default function Home() {
     actions.setIsGameOn(true);
     actions.setCurrentPlayer("user");
 
-
-    /* let userShipConditions = [
-      getShipStatus("user", userDestroyer),
-      getShipStatus("user", userCruiser),
-      getShipStatus("user", userSubmarine),
-      getShipStatus("user", userBattleShip),
-      getShipStatus("user", userCarrier)
-    ]
-
-    let computerShipConditions = [
-      getShipStatus("computer", computerDestroyer),
-      getShipStatus("computer", computerCruiser),
-      getShipStatus("computer", computerSubmarine),
-      getShipStatus("computer", computerBattleShip),
-      getShipStatus("computer", computerCarrier)
-    ]
-
-
-    if (!userShipConditions.includes("alive") || !computerShipConditions.includes("alive")) {
-      actions.setIsGameOn(false)
-      alert("game ended")
-    } */
-
   }
 
   useEffect(() => {
     
     if (variables.isGameOn) {
-      checkIfUserWon()
+      checkIfUserWon();
+      checkIfComputerWon();
       if (hasUserWon) {
-        alert("You won")
+        alert("Tú ganas")
         actions.setIsGameOn(false);
       }
       else if (hasComputerWon) {
-        alert("You lost");
+        alert("Gana la computadora");
         actions.setIsGameOn(false);
       }
     }
-  }, [variables.isGameOn, variables.userTurns, variables.currentPlayer, hasUserWon])
+  }, [variables.isGameOn, variables.userTurns,variables.computerTurns, variables.currentPlayer, hasUserWon])
 
 
 
 
   useEffect(() => {
-
-    setTimeout(() => {
+    
+    const timer = setTimeout(() => {
       if (variables.isGameOn && variables.currentPlayer === "computer") {
         variables.currentPlayer === "computer"
         actions.shoot("computer", chooseRandomIndex(variables.boardUser.filter(x => x !== 2 || x !== 3)))
         
       }
-
-    }, 500)
+    }, 200 - 0.8 * variables.computerTurns)
+    
+    
+    return () => clearTimeout(timer)
+    
 
 
   }, [variables.currentPlayer, variables.computerTurns])
 
 
-
+ 
+ 
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col d-flex justify-content-center">
-          <h1>{!variables.isGameOn ? "Presiona start para empezar" : variables.currentPlayer === "user" ? "Es tu turno" : "Es turno de la computadora"}</h1>
+          <h1 className="text-white">{!variables.isGameOn && !hasUserWon && !hasComputerWon ? "Presiona start para empezar" : hasUserWon ? "Tú ganas" : hasComputerWon ? "Gana la computadora" : variables.currentPlayer === "user" ? "Es tu turno" : "Es turno de la computadora"}</h1>
         </div>
       </div>
       <div className="row">
         <div className="col d-flex justify-content-around">
 
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <h3>Your board</h3>
+            <h3 className="text-white">Tu tablero</h3>
             <Board board={variables.boardUser} />
           </div>
 
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <h3>Computer board</h3>
+            <h3 className="text-white">Tablero Computadora</h3>
             <Board board={variables.boardComputer} />
           </div>
 
         </div>
       </div>
-      <div className="row d-flex justify-content-center align-items-center">
-        <div className="col-4 d-flex flex-column justify-content-center align-items-center">
-          <button onClick={(e) => { placeShip(userDestroyer, "user"); e.currentTarget.disabled = true; }}>Destroyer</button>
-          <button onClick={(e) => { placeShip(userCruiser, "user"); e.currentTarget.disabled = true; }}>Cruiser</button>
-          <button onClick={(e) => { placeShip(userSubmarine, "user"); e.currentTarget.disabled = true; }}>Submarine</button>
-          <button onClick={(e) => { placeShip(userBattleShip, "user"); e.currentTarget.disabled = true; }}>Battleship</button>
-          <button onClick={(e) => { placeShip(userCarrier, "user"); e.currentTarget.disabled = true; }}>Carrier</button>
+      <div className="row d-flex justify-content-center align-items-center ps-3">
+        <div className="col-3 d-flex justify-content-center align-items-center">
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userDestroyer, "user"); e.currentTarget.disabled = true; }}>Destroyer</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userCruiser, "user"); e.currentTarget.disabled = true; }}>Cruiser</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userSubmarine, "user"); e.currentTarget.disabled = true; }}>Submarine</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userBattleShip, "user"); e.currentTarget.disabled = true; }}>Battleship</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userCarrier, "user"); e.currentTarget.disabled = true; }}>Carrier</button>
         </div>
 
 
-        <div className="col-2 d-flex flex-column justify-content-center align-items-center">
-          <button className="btn btn-primary" onClick={() => { startGame() }}>Start game</button>
+        <div className="col-3 d-flex flex-column justify-content-center align-items-center">
+          <button className="btn btn-primary btn-lg ps-5 pe-5" onClick={(e) => { startGame(); e.currentTarget.disabled = true }}>Start</button>
+          
 
         </div>
 
-        <div className="col-4 d-flex flex-column justify-content-center align-items-center">
-          <button onClick={(e) => { placeShip(computerDestroyer, "computer"); e.currentTarget.disabled = true; }}>Destroyer</button>
-          <button onClick={(e) => { placeShip(computerCruiser, "computer"); e.currentTarget.disabled = true; }}>Cruiser</button>
-          <button onClick={(e) => { placeShip(computerSubmarine, "computer"); e.currentTarget.disabled = true; }}>Submarine</button>
-          <button onClick={(e) => { placeShip(computerBattleShip, "computer"); e.currentTarget.disabled = true; }}>Battleship</button>
-          <button onClick={(e) => { placeShip(computerCarrier, "computer"); e.currentTarget.disabled = true; }}>Carrier</button>
+        <div className="col-3 d-flex justify-content-center align-items-center ps-3">
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(computerDestroyer, "computer"); e.currentTarget.disabled = true; }}>Destroyer</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(computerCruiser, "computer"); e.currentTarget.disabled = true; }}>Cruiser</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(computerSubmarine, "computer"); e.currentTarget.disabled = true; }}>Submarine</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(computerBattleShip, "computer"); e.currentTarget.disabled = true; }}>Battleship</button>
+          <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(computerCarrier, "computer"); e.currentTarget.disabled = true; }}>Carrier</button>
         </div>
 
       </div>

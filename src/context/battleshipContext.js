@@ -133,6 +133,18 @@ export const BattleShipProvider = ({ children }) => {
     }
 
 
+    
+
+    const resetGame = () => {
+        setCurrentPlayer("user");
+        setBoardUser(createBoard());
+        setBoardComputer(createBoard());
+        setIsGameOn(false);
+        setUserTurns(0);
+        setComputerTurns(0);
+    }
+
+
     // Modificar verdaderamente arrays con useState https://www.codingdeft.com/posts/react-usestate-array/
 
 
@@ -153,7 +165,8 @@ export const BattleShipProvider = ({ children }) => {
         setIsGameOn,
         shoot,
         setUserTurns,
-        setComputerTurns
+        setComputerTurns,
+        resetGame
     };
 
 
