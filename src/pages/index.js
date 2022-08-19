@@ -171,7 +171,7 @@ export default function Home() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col d-flex justify-content-center">
+        <div className="col d-flex justify-content-center" >
           <h1 className="text-white">{!variables.isGameOn && !hasUserWon && !hasComputerWon ? "Presiona start para empezar" : hasUserWon ? "Tú ganas" : hasComputerWon ? "Gana la computadora" : variables.currentPlayer === "user" ? "Es tu turno" : "Es turno de la computadora"}</h1>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function Home() {
 
         </div>
       </div>
-      <div className="row d-flex justify-content-center align-items-center ps-3">
+      <div className="row d-flex justify-content-center align-items-start ps-3" style={{ height: "30vh"}}>
         <div className="col-3 d-flex justify-content-center align-items-center">
           <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userDestroyer, "user"); e.currentTarget.disabled = true; }}>Destroyer</button>
           <button className="btn btn-dark w-50 ms-2" onClick={(e) => { placeShip(userCruiser, "user"); e.currentTarget.disabled = true; }}>Cruiser</button>
